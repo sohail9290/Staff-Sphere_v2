@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const REST_API_URL = "http://localhost:8080/api/employees";
+const REST_API_URL = "https://staff-sphere-v2.onrender.com/api/employees";
 
 export const listEmployees = () => {
     return axios.get(REST_API_URL);
