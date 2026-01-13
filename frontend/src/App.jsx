@@ -1,16 +1,12 @@
-import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-
-import HeaderComponent from './components/HeaderComponent'
-import FooterComponent from './components/FooterComponent'
-import LoginComponent from './components/LoginComponent'
-
-import ListEmployeeComponent from './components/ListEmployeeComponent'
-import EmployeeComponent from './components/EmployeeComponent'
-import ListDepartmentComponent from './components/ListDepartmentComponent'
-import DepartmentComponent from './components/DepartmentComponent'
-
-import RequireAuth from './auth/RequireAuth'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HeaderComponent from "./components/HeaderComponent";
+import FooterComponent from "./components/FooterComponent";
+import LoginComponent from "./components/LoginComponent";
+import ListEmployeeComponent from "./components/ListEmployeeComponent";
+import EmployeeComponent from "./components/EmployeeComponent";
+import ListDepartmentComponent from "./components/ListDepartmentComponent";
+import DepartmentComponent from "./components/DepartmentComponent";
+import RequireAuth from "./auth/RequireAuth";
 
 function App() {
   return (
@@ -20,12 +16,13 @@ function App() {
         {/* PUBLIC */}
         <Route path="/login" element={<LoginComponent />} />
 
-        {/* PROTECTED LAYOUT */}
+        {/* PROTECTED */}
         <Route element={<RequireAuth />}>
           <Route
             element={
               <>
                 <HeaderComponent />
+                <OutletWrapper />
                 <FooterComponent />
               </>
             }
@@ -42,7 +39,11 @@ function App() {
 
       </Routes>
     </BrowserRouter>
-  )
+  );
+}
+
+function OutletWrapper() {
+  return <Outlet />;
 }
 
 export default App;
