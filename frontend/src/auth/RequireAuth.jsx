@@ -3,11 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 const RequireAuth = () => {
   const token = localStorage.getItem("token");
 
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return <Outlet />;
+  return token ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default RequireAuth;
