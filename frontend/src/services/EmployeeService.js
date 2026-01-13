@@ -1,23 +1,15 @@
 import axios from "axios";
 
-const REST_API_URL = "https://staff-sphere-v2.onrender.com/api/employees";
+const BASE_URL = "https://staff-sphere-v2.onrender.com/api/employees";
 
-export const listEmployees = () => {
-    return axios.get(REST_API_URL);
+const auth = {
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`
+  }
 };
 
-export const createEmployee = (employee) => {
-    return axios.post(REST_API_URL, employee);
-}
-
-export const getEmployee = (id) => {
-    return axios.get(`${REST_API_URL}/${id}`);
-}
-
-export const updateEmployee = (id, employee) => {
-    return axios.put(`${REST_API_URL}/${id}`, employee);
-}
-
-export const deleteEmployee = (id) => {
-    return axios.delete(`${REST_API_URL}/${id}`);
-}
+export const listEmployees = () => axios.get(BASE_URL, auth);
+export const createEmployee = (e) => axios.post(BASE_URL, e, auth);
+export const getEmployee = (id) => axios.get(`${BASE_URL}/${id}`, auth);
+export const updateEmployee = (id, e) => axios.put(`${BASE_URL}/${id}`, e, auth);
+export const deleteEmployee = (id) => axios.delete(`${BASE_URL}/${id}`, auth);
