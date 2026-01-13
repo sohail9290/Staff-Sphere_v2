@@ -6,14 +6,21 @@ const LoginComponent = () => {
     const navigate = useNavigate();
 
     const handleSuccess = async (response) => {
-        const res = await axios.post(
-            'https://staff-sphere-v2.onrender.com/api/auth/google',
-            { token: response.credential }
-        );
+        try {
+            const res = await axios.post(
+                'https://staff-sphere-v2.onrender.com/api/auth/google',
+                { token: response.credential }
+            );
 
-        localStorage.setItem('token', res.data.token);
+            localStorage.setItem('token', res.data.token);
 
-        navigate('/employees');
+            // ✅ SPA navigation (NO PAGE RELOAD)
+            navigate('/employees');
+
+        } catch (error) {
+            console.error('Login failed:', error);
+            alert('Login failed. Please try again.');
+        }
     };
 
     return (
