@@ -1,0 +1,21 @@
+# === BACKEND ===
+backend/target/
+backend/*.log
+backend/.env
+
+# === FRONTEND ===
+frontend/node_modules/
+frontend/build/
+frontend/.env
+
+# === IDE files ===
+*.iml
+*.classpath
+*.project
+*.settings/
+.idea/
+.vscode/
+
+# === OS files ===
+.DS_Store
+Thumbs.db
