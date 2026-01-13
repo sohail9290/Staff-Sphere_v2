@@ -6,7 +6,7 @@ const LoginComponent = () => {
     const handleSuccess = async (response) => {
         try {
             const res = await axios.post(
-                'http://localhost:8080/api/auth/google',
+                'https://staff-sphere-v2.onrender.com/api/auth/google',
                 { token: response.credential }
             );
 
