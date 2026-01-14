@@ -5,97 +5,44 @@ import HeaderComponent from './components/HeaderComponent'
 import ListEmployeeComponent from './components/ListEmployeeComponent'
 import ListDepartmentComponent from './components/ListDepartmentComponent'
 import DepartmentComponent from './components/DepartmentComponent'
-import LoginComponent from './components/LoginComponent'
+import LoginComponent from './components/LoginComponent';
 import RequireAuth from './auth/RequireAuth'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-
-function Layout({ children }) {
-  const location = useLocation()
-
-  const isLoginPage = location.pathname === '/login'
-
-  return (
-    <>
-      {!isLoginPage && <HeaderComponent />}
-      {children}
-      {!isLoginPage && <FooterComponent />}
-    </>
-  )
-}
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
     <BrowserRouter>
-      <Layout>
-        <Routes>
-          {/* PUBLIC */}
-          <Route path="/login" element={<LoginComponent />} />
 
-          {/* PROTECTED */}
-          <Route
-            path="/"
-            element={
-              <RequireAuth>
-                <ListEmployeeComponent />
-              </RequireAuth>
-            }
-          />
+      <Routes>
+        {/* PUBLIC */}
+        <Route path="/login" element={<LoginComponent />} />
 
-          <Route
-            path="/employees"
-            element={
-              <RequireAuth>
-                <ListEmployeeComponent />
-              </RequireAuth>
-            }
-          />
+        {/* PROTECTED */}
+        <Route
+          path="/*"
+          element={
+            <RequireAuth>
+              <>
+                <HeaderComponent />
 
-          <Route
-            path="/add-employee"
-            element={
-              <RequireAuth>
-                <EmployeeComponent />
-              </RequireAuth>
-            }
-          />
+                <Routes>
+                  <Route path="/" element={<ListEmployeeComponent />} />
+                  <Route path="/employees" element={<ListEmployeeComponent />} />
+                  <Route path="/add-employee" element={<EmployeeComponent />} />
+                  <Route path="/edit-employee/:id" element={<EmployeeComponent />} />
+                  <Route path="/departments" element={<ListDepartmentComponent />} />
+                  <Route path="/add-department" element={<DepartmentComponent />} />
+                  <Route path="/edit-department/:id" element={<DepartmentComponent />} />
+                  <Route path="/login" element={<LoginComponent />} />
+                </Routes>
 
-          <Route
-            path="/edit-employee/:id"
-            element={
-              <RequireAuth>
-                <EmployeeComponent />
-              </RequireAuth>
-            }
-          />
+                <FooterComponent />
+              </>
+            </RequireAuth>
+          }
+        />
+      </Routes>
 
-          <Route
-            path="/departments"
-            element={
-              <RequireAuth>
-                <ListDepartmentComponent />
-              </RequireAuth>
-            }
-          />
-
-          <Route
-            path="/add-department"
-            element={
-              <RequireAuth>
-                <DepartmentComponent />
-              </RequireAuth>
-            }
-          />
-
-          <Route
-            path="/edit-department/:id"
-            element={
-              <RequireAuth>
-                <DepartmentComponent />
-              </RequireAuth>
-            }
-          />
-        </Routes>
-      </Layout>
     </BrowserRouter>
   )
 }
